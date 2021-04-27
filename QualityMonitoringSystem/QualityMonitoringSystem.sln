@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityMonitoringSystem", "QualityMonitoringSystem\QualityMonitoringSystem.csproj", "{EE52BCAF-A2D1-4D01-A280-3E6B28CB62A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityMonitoringSystem.Tests", "QualityMonitoringSystem.Tests\QualityMonitoringSystem.Tests.csproj", "{7F34155E-15AD-46A9-A2F5-FFA75A438FA6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{EE52BCAF-A2D1-4D01-A280-3E6B28CB62A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE52BCAF-A2D1-4D01-A280-3E6B28CB62A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE52BCAF-A2D1-4D01-A280-3E6B28CB62A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F34155E-15AD-46A9-A2F5-FFA75A438FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F34155E-15AD-46A9-A2F5-FFA75A438FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F34155E-15AD-46A9-A2F5-FFA75A438FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F34155E-15AD-46A9-A2F5-FFA75A438FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
