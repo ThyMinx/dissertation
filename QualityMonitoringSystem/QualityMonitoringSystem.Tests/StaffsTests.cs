@@ -20,10 +20,10 @@ namespace QualityMonitoringSystem.Tests
         [TestMethod]
         public async Task Index_Always_CallsGetAllAsync()
         {
-            // Arrange
+            // Create's a mock database
             var staff = new List<Staff> {
                     new Staff{ Email="johnwhelan@hull.ac.uk", Forenames="John", Surname="Whelan", ID=69, Password="wheelanabout"},
-                    new Staff{ Email="jamescairns@hull.ac.uk", Forenames="James", Surname="Cairns", ID=79, Password="pokemon8"}
+                    new Staff{ Email="jamescairns@hull.ac.uk", Forenames="James", Surname="Cairns", ID=79, Password="peekaboo"}
                 };
             var sut = SystemUnderTest();
             this.staffDbMock.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(staff));
@@ -39,10 +39,10 @@ namespace QualityMonitoringSystem.Tests
         [TestMethod]
         public async Task Index_Always_ReturnsListofStaff()
         {
-            // Arrange
+            // Create's a mock database
             var staff = new List<Staff> {
                     new Staff{ Email="johnwhelan@hull.ac.uk", Forenames="John", Surname="Whelan", ID=69, Password="wheelanabout"},
-                    new Staff{ Email="jamescairns@hull.ac.uk", Forenames="James", Surname="Cairns", ID=79, Password="pokemon8"}
+                    new Staff{ Email="jamescairns@hull.ac.uk", Forenames="James", Surname="Cairns", ID=79, Password="peekaboo"}
                 };
 
             var sut = SystemUnderTest();
