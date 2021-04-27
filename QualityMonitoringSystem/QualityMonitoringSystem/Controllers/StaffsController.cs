@@ -8,18 +8,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QualityMonitoringSystem.Models;
+using QualityMonitoringSystem.Interfaces;
+using QualityMonitoringSystem.Dal;
 
 namespace QualityMonitoringSystem.Controllers
 {
     public class StaffsController : Controller
     {
-        private QualityMonitoringSystemEntities db = new QualityMonitoringSystemEntities();
-
+        public IDatabaseAccess<Staff> databaseAccess = new StaffDatabaseAccess();
         // GET: Staffs
         // This handles any link that directs to the view main page in the Staffs.
         public async Task<ActionResult> Index()
         {
-            return View(await db.Staffs.ToListAsync());
+            return View(await this.databaseAccess.GetAllAsync());
         }
 
         // GET: Staffs/Details/5
@@ -30,7 +31,7 @@ namespace QualityMonitoringSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await this.databaseAccess.FindByIdAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -54,8 +55,8 @@ namespace QualityMonitoringSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Staffs.Add(staff);
-                await db.SaveChangesAsync();
+                this.databaseAccess.Add(staff);
+                await this.databaseAccess.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -70,7 +71,7 @@ namespace QualityMonitoringSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await this.databaseAccess.FindByIdAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -87,8 +88,8 @@ namespace QualityMonitoringSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(staff).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                this.databaseAccess.Entry(staff).State = EntityState.Modified;
+                await this.databaseAccess.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(staff);
@@ -102,7 +103,7 @@ namespace QualityMonitoringSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await db.Staffs.FindAsync(id);
+            Staff staff = await this.databaseAccess.FindByIdAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -115,9 +116,9 @@ namespace QualityMonitoringSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Staff staff = await db.Staffs.FindAsync(id);
-            db.Staffs.Remove(staff);
-            await db.SaveChangesAsync();
+            Staff staff = await this.databaseAccess.FindByIdAsync(id);
+            this.databaseAccess.Remove(staff);
+            await this.databaseAccess.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -125,7 +126,7 @@ namespace QualityMonitoringSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.databaseAccess.Dispose();
             }
             base.Dispose(disposing);
         }
