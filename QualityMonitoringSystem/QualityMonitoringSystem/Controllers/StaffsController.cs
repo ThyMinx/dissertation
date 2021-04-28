@@ -3,35 +3,31 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QualityMonitoringSystem.Models;
-using QualityMonitoringSystem.Interfaces;
-using QualityMonitoringSystem.Dal;
 
 namespace QualityMonitoringSystem.Controllers
 {
     public class StaffsController : Controller
     {
-        public IDatabaseAccess<Staff> databaseAccess = new StaffDatabaseAccess();
+        private QualityMonitoringSystemEntities db = new QualityMonitoringSystemEntities();
+
         // GET: Staffs
-        // This handles any link that directs to the view main page in the Staffs.
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await this.databaseAccess.GetAllAsync());
+            return View(db.Staffs.ToList());
         }
 
         // GET: Staffs/Details/5
-        // This handles any link that directs to the view "details" in the Staffs.
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await this.databaseAccess.FindByIdAsync(id);
+            Staff staff = db.Staffs.Find(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -40,7 +36,6 @@ namespace QualityMonitoringSystem.Controllers
         }
 
         // GET: Staffs/Create
-        // This handles any link that directs to the view "create" in the Staffs.
         public ActionResult Create()
         {
             return View();
@@ -51,12 +46,12 @@ namespace QualityMonitoringSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
+        public ActionResult Create([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
         {
             if (ModelState.IsValid)
             {
-                this.databaseAccess.Add(staff);
-                await this.databaseAccess.SaveChangesAsync();
+                db.Staffs.Add(staff);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -64,14 +59,13 @@ namespace QualityMonitoringSystem.Controllers
         }
 
         // GET: Staffs/Edit/5
-        // This handles any link that directs to the view "edit" in the Staffs.
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await this.databaseAccess.FindByIdAsync(id);
+            Staff staff = db.Staffs.Find(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -84,26 +78,25 @@ namespace QualityMonitoringSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
+        public ActionResult Edit([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
         {
             if (ModelState.IsValid)
             {
-                this.databaseAccess.Entry(staff).State = EntityState.Modified;
-                await this.databaseAccess.SaveChangesAsync();
+                db.Entry(staff).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(staff);
         }
 
         // GET: Staffs/Delete/5
-        // This handles any link that directs to the view "delete" in the Staffs.
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = await this.databaseAccess.FindByIdAsync(id);
+            Staff staff = db.Staffs.Find(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -114,11 +107,11 @@ namespace QualityMonitoringSystem.Controllers
         // POST: Staffs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Staff staff = await this.databaseAccess.FindByIdAsync(id);
-            this.databaseAccess.Remove(staff);
-            await this.databaseAccess.SaveChangesAsync();
+            Staff staff = db.Staffs.Find(id);
+            db.Staffs.Remove(staff);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -126,7 +119,7 @@ namespace QualityMonitoringSystem.Controllers
         {
             if (disposing)
             {
-                this.databaseAccess.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }

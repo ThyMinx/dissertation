@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QualityMonitoringSystem")]
+[assembly: AssemblyTitle("QualityMonitoringSystem.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QualityMonitoringSystem")]
+[assembly: AssemblyProduct("QualityMonitoringSystem.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("56c11ff5-5fa2-4ae7-bbe5-7cada3671b9c")]
+[assembly: Guid("51b78071-cd8c-4ef3-87eb-ab1982ef5988")]
 
 // Version information for an assembly consists of the following four values:
 //
