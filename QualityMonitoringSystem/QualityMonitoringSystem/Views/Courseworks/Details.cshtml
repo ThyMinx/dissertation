@@ -4,47 +4,75 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Coursework <small style="color:#cccccc;">Manage coursework</small></h1>
+            </div>
+            <div class="col-md-2">
 
-<div>
-    <h4>Coursework</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+<section id="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">Coursework - @ViewBag.Title</li>
+        </ol>
+    </div>
+</section>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BoxFileLink)
-        </dt>
+<section id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="list-group">
+                    @*@Html.ActionLink("Back to List", "Index", new { area = "" }, new { @class = "list-group-item btn-success" })*@
+                    <a href="@Url.Action("Edit", new { id = Model.ID })" class="list-group-item btn-success"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>
+                    <a href="@Url.Action("Index")" class="list-group-item btn-success"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to List</a>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BoxFileLink)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Reviewed)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.BoxFileLink)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Reviewed)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.BoxFileLink)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Module.Name)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Reviewed)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Module.Name)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Reviewed)
+                        </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Module.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Module.Name)
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

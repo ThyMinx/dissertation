@@ -4,48 +4,83 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<header id="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Staff <small style="color:#cccccc;">Manage staff</small></h1>
+            </div>
+            <div class="col-md-2">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Forenames)
-        </th>
-        <th></th>
-    </tr>
+            </div>
+        </div>
+    </div>
+</header>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Forenames)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+<section id="breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">Staff</li>
+        </ol>
+    </div>
+</section>
 
-</table>
+<section id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="list-group">
+                    @*@Html.ActionLink("Create New", "Create", new { area = "" }, new { @class = "list-group-item btn-success" })*@
+                    <a href="@Url.Action("Create")" class="list-group-item btn-success"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Create New</a>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Password)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Surname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Forenames)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Surname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Forenames)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", new { id = item.ID })"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a> |
+                                @*<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
+                                <a href="@Url.Action("Details", new { id = item.ID })"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Details</a> |
+                                @*<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                                <a href="@Url.Action("Delete", new { id = item.ID })" style="color:red;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</a>
+                                @*<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
