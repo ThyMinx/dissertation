@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d76ff17cb56c4596aed3b2a5397726c3" Name="Diagram1">
         <EntityTypeShape EntityType="QualityMonitoringSystemModel.Staff" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QualityMonitoringSystemModel.Coursework" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="QualityMonitoringSystemModel.Module" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="QualityMonitoringSystemModel.FK_Coursework_Module" />
+        <AssociationConnector Association="QualityMonitoringSystemModel.FK_Module_Staff" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

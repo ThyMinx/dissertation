@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -15,19 +16,19 @@ namespace QualityMonitoringSystem.Controllers
         private QualityMonitoringSystemEntities db = new QualityMonitoringSystemEntities();
 
         // GET: Staffs
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Staffs.ToList());
+            return View(await db.Staffs.ToListAsync());
         }
 
         // GET: Staffs/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = await db.Staffs.FindAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -46,12 +47,12 @@ namespace QualityMonitoringSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
         {
             if (ModelState.IsValid)
             {
                 db.Staffs.Add(staff);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -59,13 +60,13 @@ namespace QualityMonitoringSystem.Controllers
         }
 
         // GET: Staffs/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = await db.Staffs.FindAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -78,25 +79,25 @@ namespace QualityMonitoringSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Email,Password,Surname,Forenames")] Staff staff)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(staff).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(staff);
         }
 
         // GET: Staffs/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = await db.Staffs.FindAsync(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -107,11 +108,11 @@ namespace QualityMonitoringSystem.Controllers
         // POST: Staffs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = await db.Staffs.FindAsync(id);
             db.Staffs.Remove(staff);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

@@ -4,7 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QualityMonitoringSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QualityMonitoringSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coursework">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BoxFileLink" Type="nvarchar" MaxLength="125" />
+          <Property Name="Reviewed" Type="bit" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Semester" Type="bit" />
+          <Property Name="StaffId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="ID" />
@@ -15,11 +34,44 @@
           <Property Name="Surname" Type="nvarchar" MaxLength="50" />
           <Property Name="Forenames" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Coursework_Module">
+          <End Role="Module" Type="Self.Module" Multiplicity="1" />
+          <End Role="Coursework" Type="Self.Coursework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coursework">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Module" Type="Self.Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="QualityMonitoringSystemModelStoreContainer">
+          <EntitySet Name="Coursework" EntityType="Self.Coursework" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Coursework_Module" Association="Self.FK_Coursework_Module">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="Coursework" EntitySet="Coursework" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Staff" Association="Self.FK_Module_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Module" EntitySet="Module" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QualityMonitoringSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -32,10 +84,67 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Forenames" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Modules" Relationship="QualityMonitoringSystemModel.FK_Module_Staff" FromRole="Staff" ToRole="Module" />
         </EntityType>
         <EntityContainer Name="QualityMonitoringSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Courseworks" EntityType="QualityMonitoringSystemModel.Coursework" />
+          <EntitySet Name="Modules" EntityType="QualityMonitoringSystemModel.Module" />
+          <AssociationSet Name="FK_Coursework_Module" Association="QualityMonitoringSystemModel.FK_Coursework_Module">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Coursework" EntitySet="Courseworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Module_Staff" Association="QualityMonitoringSystemModel.FK_Module_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Module" EntitySet="Modules" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Coursework">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BoxFileLink" Type="String" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="Reviewed" Type="Boolean" Nullable="false" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Module" Relationship="QualityMonitoringSystemModel.FK_Coursework_Module" FromRole="Coursework" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Semester" Type="Boolean" />
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Courseworks" Relationship="QualityMonitoringSystemModel.FK_Coursework_Module" FromRole="Module" ToRole="Coursework" />
+          <NavigationProperty Name="Staff" Relationship="QualityMonitoringSystemModel.FK_Module_Staff" FromRole="Module" ToRole="Staff" />
+        </EntityType>
+        <Association Name="FK_Coursework_Module">
+          <End Type="QualityMonitoringSystemModel.Module" Role="Module" Multiplicity="1" />
+          <End Type="QualityMonitoringSystemModel.Coursework" Role="Coursework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Coursework">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Module_Staff">
+          <End Type="QualityMonitoringSystemModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="QualityMonitoringSystemModel.Module" Role="Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Module">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,6 +159,27 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Forenames" ColumnName="Forenames" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courseworks">
+            <EntityTypeMapping TypeName="QualityMonitoringSystemModel.Coursework">
+              <MappingFragment StoreEntitySet="Coursework">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="Reviewed" ColumnName="Reviewed" />
+                <ScalarProperty Name="BoxFileLink" ColumnName="BoxFileLink" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="QualityMonitoringSystemModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

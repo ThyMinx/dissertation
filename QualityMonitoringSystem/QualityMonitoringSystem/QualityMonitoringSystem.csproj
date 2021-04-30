@@ -128,10 +128,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CourseworksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModulesController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Coursework.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -147,6 +152,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Module.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Staff.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -211,6 +219,16 @@
     <Content Include="Views\Staffs\Details.cshtml" />
     <Content Include="Views\Staffs\Edit.cshtml" />
     <Content Include="Views\Staffs\Index.cshtml" />
+    <Content Include="Views\Courseworks\Create.cshtml" />
+    <Content Include="Views\Courseworks\Delete.cshtml" />
+    <Content Include="Views\Courseworks\Details.cshtml" />
+    <Content Include="Views\Courseworks\Edit.cshtml" />
+    <Content Include="Views\Courseworks\Index.cshtml" />
+    <Content Include="Views\Modules\Create.cshtml" />
+    <Content Include="Views\Modules\Delete.cshtml" />
+    <Content Include="Views\Modules\Details.cshtml" />
+    <Content Include="Views\Modules\Edit.cshtml" />
+    <Content Include="Views\Modules\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

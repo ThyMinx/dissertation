@@ -26,5 +26,7 @@ namespace QualityMonitoringSystem.Models
         }
     
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<Coursework> Courseworks { get; set; }
+        public virtual DbSet<Module> Modules { get; set; }
     }
 }

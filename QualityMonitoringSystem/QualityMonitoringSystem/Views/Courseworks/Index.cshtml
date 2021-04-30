@@ -1,0 +1,51 @@
+﻿@model IEnumerable<QualityMonitoringSystem.Models.Coursework>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BoxFileLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reviewed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Module.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BoxFileLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reviewed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Module.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
